@@ -57,7 +57,7 @@ app.post('/searchhospital', middleware.checkToken, (req, res) => {
 
 app.post('/addvent', (req, res) => {
     const hid = req.query.hid;
-    const ventid = req.query.ventilatorld;
+    const ventid = req.query.ventilatorid;
     const status = req.query.status;
     const name = req.query.name;
     console.log("adding ventilator, please wait a moment");
@@ -79,7 +79,7 @@ app.put('/updateventilator', middleware.checkToken, (req, res) => {
 });
 
 app.delete('/deletevent', middleware.checkToken, (req, res) => {
-    const ventid = req.query.ventilatorld;
+    const ventid = req.query.ventilatorid;
     console.log(ventid);
     const temp = { "ventilatorid": ventid };
     db.collection("ventilators").deleteOne(temp, function (err, obj) {
