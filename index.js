@@ -68,11 +68,11 @@ app.post('/addvent', (req, res) => {
 });
 
 app.put('/updateventilator', middleware.checkToken, (req, res) => {
-    const ventid = { ventid: req.query.ventilatorld };
-    console.log(ventid);
+    const ventilatorid = { ventilatorid: req.query.ventilatorid };
+    console.log(ventilatorid);
     const newvalues = { $set: { status: req.query.status } };
     console.log("updating ventilator details, please wait a moment");
-    db.collection("ventilators").updateOne(ventid, newvalues, function (err, result) {
+    db.collection("ventilators").updateOne(ventilatorid, newvalues, function (err, result) {
         res.json('updated one document');
         if (err) throw err;
     });
@@ -88,13 +88,14 @@ app.delete('/deletevent', middleware.checkToken, (req, res) => {
     });
 });
 
-app.get('/searchventilators', (req, res) => {
+app.post('/searchventilators', (req, res) => {
     const status = req.query.status;
     const name = req.query.name;
     console.log("searching ventilators, please wait a moment");
-    const data = db.collection("ventilators").find({ "name": name }, { "status": status }).toArray().then(result => res.send(result));
-    res.send("no hospital found :(");
+    const data = db.collection("ventilators").find({ "name": name }, { "status": status }).toArray().then(result => res.json(result));
+    //res.send("no hospital found :(");
 });
+
 
 app.listen(9000, (req, res) => {
     console.log("working well");
